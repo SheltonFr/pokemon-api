@@ -28,8 +28,8 @@ public class PokemonController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Pokemon> getPokemonById(@PathVariable int id){
-        return ResponseEntity.ok(new Pokemon(id, "Teste", "Teste"));
+    public ResponseEntity<PokemonDto> getPokemonById(@PathVariable int id){
+        return ResponseEntity.ok(pokemonService.findPokemonById(id));
     }
 
     @PostMapping("/create")
