@@ -1,6 +1,7 @@
 package com.pokemon.api.controllers;
 
 import com.pokemon.api.dto.PokemonDto;
+import com.pokemon.api.dto.PokemonResponse;
 import com.pokemon.api.models.Pokemon;
 import com.pokemon.api.services.PokemonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,11 @@ public class PokemonController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<PokemonDto>> getPokemons(){
-        return ResponseEntity.ok(pokemonService.getAllPokemon());
+    public ResponseEntity<PokemonResponse> getAllPokemons(
+            @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize
+    ){
+        return ResponseEntity.ok(pokemonService.getAllPokemon(pageNo, pageSize));
     }
 
     @GetMapping("/{id}")
