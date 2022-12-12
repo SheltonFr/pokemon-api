@@ -40,12 +40,13 @@ public class PokemonController {
 
 
     @PutMapping("/{id}/update")
-    public ResponseEntity<Pokemon> updatePokemno(@RequestBody Pokemon pokemon, @PathVariable("id") int id){
-        return new ResponseEntity<>(pokemon, HttpStatus.OK);
+    public ResponseEntity<PokemonDto> updatePokemno(@RequestBody PokemonDto pokemonDto, @PathVariable("id") int id){
+        return new ResponseEntity<>(pokemonService.updatePokemon(pokemonDto, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}/delete")
     public ResponseEntity<String> deletePokenon(@PathVariable("id") int id){
-        return ResponseEntity.ok("Pokemon " + id + " deleted succesfully" );
+        pokemonService.deletePokemonById(id);
+        return ResponseEntity.ok("Pokemon deleted succesfully!");
     }
 }
