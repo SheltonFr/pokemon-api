@@ -1,7 +1,7 @@
 package com.pokemon.api.services.impl;
 
 import com.pokemon.api.dto.PokemonDto;
-import com.pokemon.api.dto.PokemonResponse;
+import com.pokemon.api.responses.PokemonResponse;
 import com.pokemon.api.exceptions.PokemonNotFoundException;
 import com.pokemon.api.models.Pokemon;
 import com.pokemon.api.repositories.PokemonRepository;
@@ -11,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.stream.Collectors;
 

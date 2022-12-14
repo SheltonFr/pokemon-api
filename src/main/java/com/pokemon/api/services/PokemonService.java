@@ -1,7 +1,7 @@
 package com.pokemon.api.services;
 
 import com.pokemon.api.dto.PokemonDto;
-import com.pokemon.api.dto.PokemonResponse;
+import com.pokemon.api.responses.PokemonResponse;
 
 public interface PokemonService {
     PokemonDto createPokemon(PokemonDto pokemonDto);

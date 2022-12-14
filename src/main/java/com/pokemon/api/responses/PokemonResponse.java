@@ -1,5 +1,6 @@
-package com.pokemon.api.dto;
+package com.pokemon.api.responses;
 
+import com.pokemon.api.dto.PokemonDto;
 import lombok.Data;
 
 import java.util.List;

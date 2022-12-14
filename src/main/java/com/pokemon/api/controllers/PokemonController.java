@@ -1,16 +1,12 @@
 package com.pokemon.api.controllers;
 
 import com.pokemon.api.dto.PokemonDto;
-import com.pokemon.api.dto.PokemonResponse;
-import com.pokemon.api.models.Pokemon;
+import com.pokemon.api.responses.PokemonResponse;
 import com.pokemon.api.services.PokemonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/pokemon/")

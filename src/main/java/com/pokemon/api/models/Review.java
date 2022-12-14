@@ -1,9 +1,6 @@
 package com.pokemon.api.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,5 +15,11 @@ public class Review {
     private int id;
     private String title;
     private String content;
-    private int start;
+    private int stars;
+
+    //(Um pokemon pode ter varios reviews, e um review é para um pokemon. [Review(Many) - (One)Pokemon])
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pokemon_id")
+    private Pokemon pokemon;
+
 }
