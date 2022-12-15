@@ -42,9 +42,29 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public ReviewDto findById(int id) {
-        Review review = reviewRepository.findById(id).orElseThrow(() -> new ReviewNotFoundException("Review Not Found!"));
+    public ReviewDto findReviewById(int reviewId, int pokemonId) {
+        Pokemon pokemon = pokemonRepository.findById(pokemonId).orElseThrow(() -> new PokemonNotFoundException("Pokemon not found!"));
+        Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new ReviewNotFoundException("Review not found!"));
+
+        if(review.getPokemon().getId() != pokemon.getId()) {
+            throw new ReviewNotFoundException("This review doesen't belong to a pokemon");
+        }
+
         return mapToDto(review);
+    }
+
+    @Override
+    public ReviewDto updateReview(int pokemonId, int reviewId, ReviewDto reviewDto) {
+        Pokemon pokemon = pokemonRepository.findById(pokemonId).orElseThrow(() -> new PokemonNotFoundException("Pokemon not found!"));
+        Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new ReviewNotFoundException("Review not found!"));
+
+        review.setContent(reviewDto.getContent());
+        review.setTitle(reviewDto.getTitle());
+        review.setStars(reviewDto.getStars());
+
+        Review updatedReview = reviewRepository.save(review);
+
+        return mapToDto(updatedReview);
     }
 
 
@@ -58,11 +78,10 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     private Review mapToEntity(ReviewDto reviewDto) {
-        Review review = new Review();
-        review.setId(reviewDto.getId());
-        review.setStars(reviewDto.getStars());
-        review.setTitle(reviewDto.getTitle());
-        review.setContent(reviewDto.getContent());
-        return review;
+        return Review.builder()
+                .title(reviewDto.getTitle())
+                .stars(reviewDto.getStars())
+                .content(reviewDto.getContent())
+                .build();
     }
 }
