@@ -58,6 +58,10 @@ public class ReviewServiceImpl implements ReviewService {
         Pokemon pokemon = pokemonRepository.findById(pokemonId).orElseThrow(() -> new PokemonNotFoundException("Pokemon not found!"));
         Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new ReviewNotFoundException("Review not found!"));
 
+        if(review.getPokemon().getId() != pokemon.getId()) {
+            throw new ReviewNotFoundException("This review doesen't belong to a pokemon");
+        }
+
         review.setContent(reviewDto.getContent());
         review.setTitle(reviewDto.getTitle());
         review.setStars(reviewDto.getStars());
@@ -65,6 +69,19 @@ public class ReviewServiceImpl implements ReviewService {
         Review updatedReview = reviewRepository.save(review);
 
         return mapToDto(updatedReview);
+    }
+
+    @Override
+    public void deleteReview(int pokemonId, int reviewId) {
+        Pokemon pokemon = pokemonRepository.findById(pokemonId).orElseThrow(() -> new PokemonNotFoundException("Pokemon not found!"));
+        Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new ReviewNotFoundException("Review not found!"));
+
+        if(review.getPokemon().getId() != pokemon.getId()) {
+            throw new ReviewNotFoundException("This review doesen't belong to a pokemon");
+        }
+
+        reviewRepository.delete(review);
+
     }
 
 
